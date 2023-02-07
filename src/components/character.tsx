@@ -8,8 +8,9 @@ const Character : React.FC<{ character: DisneyCharacter}> = ( { character }) => 
   let imageSrc = "https://picsum.photos/300/200/?blur";
   if (character.imageUrl) {
     // API seems to include extra path for images so here we strip it off to fetch raw image
-    imageSrc = character.imageUrl.substring(0, character.imageUrl.indexOf('/revision'));
+    imageSrc = character.imageUrl;//.substring(0, character.imageUrl.indexOf('/revision'));
   }
+  console.log(imageSrc);
 
   return (
     <article className="character-item">
@@ -26,5 +27,4 @@ const Character : React.FC<{ character: DisneyCharacter}> = ( { character }) => 
   );
 }
 
-
-export default Character
+export default Character;
