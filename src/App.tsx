@@ -10,8 +10,9 @@ const App : React.FC = () => {
 
 	const [currentPage, setCurrentPage] = useState<number>(1);
 
-  // Some dummy state representing disney characters
   const [characters, setCharacters] = useState<Array<DisneyCharacter>>([]);
+
+  const [characterFavourites, setCharacterFavourites] = useState<Array<number>>([]);
   
   const getCharacters = async (pageNumber : number) => {
     const apiResponse = await fetch(`http://api.disneyapi.dev/characters?page=${pageNumber}`);
@@ -27,7 +28,11 @@ const App : React.FC = () => {
     <div className="page">
       <Header currentPage={currentPage} />
       <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      <CharacterContainer characters={characters} />
+      <CharacterContainer 
+        characters={characters}
+        characterFavourites={characterFavourites}
+        updateFavourites={setCharacterFavourites}
+      />
     </div>
   );
 }
