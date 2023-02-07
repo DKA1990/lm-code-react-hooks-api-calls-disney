@@ -4,7 +4,7 @@ import { DisneyCharacter } from "../disney_character"
 
 interface CharacterProps{
 	character: DisneyCharacter;
-	updateFavourites: (favourites: Array<number>) => void;
+	updateFavourites: (favourites: Array<DisneyCharacter>) => void;
 }
 // for our props we can reuse the DisneyCharacter interface
 // - defining an anonymous type that just has one property - a DisneyCharacter
@@ -19,16 +19,17 @@ const Character : React.FC<CharacterProps> = ( { character, updateFavourites }) 
     imageSrc = character.imageUrl;//.substring(0, character.imageUrl.indexOf('/revision'));
   }
 
-  function toggleFavouriteForCharacter(characterId : number) {
-    if(!characterFavourites.includes(characterId)) {
+  function toggleFavouriteForCharacter(character : DisneyCharacter) {
+    if (!characterFavourites.find(char => char._id === character._id)) {
         // add to favourites
-        updateFavourites([...characterFavourites, characterId]);
+        updateFavourites([...characterFavourites, character]);
     }
     else {
       // remove from favourites
-      const updatedFavourites = characterFavourites.filter((id) => id !== characterId);
+      const updatedFavourites = characterFavourites.filter((char) => char._id !== character._id);
       updateFavourites(updatedFavourites);
     }
+    console.log(characterFavourites);
   }
 
   return (
@@ -36,8 +37,8 @@ const Character : React.FC<CharacterProps> = ( { character, updateFavourites }) 
 
       <h2>{character.name}</h2>
 
-      <div className="character-item__actions" onClick={() => toggleFavouriteForCharacter(character._id)}>
-        {!characterFavourites.includes(character._id) ? "Add to Favourites" : "Favourited"}
+      <div className="character-item__actions" onClick={() => toggleFavouriteForCharacter(character)}>
+        {!characterFavourites.find(char => char._id === character._id) ? "Add to Favourites" : "Favourited"}
       </div>
 
       <img className="character-item__img" src={imageSrc} alt={character.name} />

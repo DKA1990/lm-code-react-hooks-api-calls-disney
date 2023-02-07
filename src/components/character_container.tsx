@@ -4,7 +4,7 @@ import Character from './character';
 
 interface CharacterContainerProps {
     characters: Array<DisneyCharacter>;
-    updateFavourites: (favourites: Array<number>) => void;
+    updateFavourites: (favourites: Array<DisneyCharacter>) => void;
 }
 // for our props we can reuse the DisneyCharacter interface
 // - defining an anonymous type that just has one property - an array of DisneyCharacter
